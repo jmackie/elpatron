@@ -1,0 +1,7 @@
+.Rproj.user
+.Rhistory
+.RData
+.depends
+.testfiles
+gh-pages
+cran-comments.md
