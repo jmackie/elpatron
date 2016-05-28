@@ -1,6 +1,7 @@
 # El patron
 ![version badge](http://www.r-pkg.org/badges/version/elpatron)
 ![download badge](http://cranlogs.r-pkg.org/badges/grand-total/elpatron?color=8808ff)
+![Build Status](https://travis-ci.org/jmackie4/elpatron.svg?branch=master)
 
 **El patrón**. *Spanish*: *the boss*.
 
