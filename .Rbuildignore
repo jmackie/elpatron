@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^\.depends$
 ^\.testfiles$
+^\.travis\.yml$
 ^man-roxygen$
 ^tests$
 ^gh-pages$
