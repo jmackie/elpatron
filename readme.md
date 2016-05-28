@@ -1,4 +1,6 @@
 # El patron
+![version badge](http://www.r-pkg.org/badges/version/elpatron)
+![download badge](http://cranlogs.r-pkg.org/badges/grand-total/elpatron?color=8808ff)
 
 **El patrón**. *Spanish*: *the boss*. If you aren't familiar with its meaning, this may not be for you...
 
