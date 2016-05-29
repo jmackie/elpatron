@@ -33,9 +33,9 @@
 #' ## Keep the lap column:
 #' clean_bikedata(parsed_ride, lap)
 #'
-#' ## We can also make use of the special dplyr::select
-#' ## functions.
-#' clean_bikedata(parsed_ride, lap, contains("temperature"))
+#' ## We can also make use of the special
+#' ## dplyr::select functions.
+#' clean_bikedata(parsed_ride, lap, contains("torque"))
 #'
 #' ## Trying to hold on to non-existent fields won't throw errors.
 #' clean_bikedata(parsed_ride, lap, contains("epo_concentration"))
