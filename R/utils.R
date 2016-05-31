@@ -98,6 +98,8 @@ semicircle_correct <- function(position) {
   (position * 180 / 2 ^ 31 + 180) %% 360 - 180
 }
 
+set_attr <- `attr<-`
+
 # EXPORTED -------------------------------------------------
 
 #' Faster base::diff
