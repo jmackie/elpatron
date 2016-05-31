@@ -174,7 +174,9 @@ import_ride.tcx <- function(file_path, make_laps = TRUE, ...) {
   }
 
   # Parse timestamp by default.
-  if (!is.null(out$Time)) out$Time <- make_time_col(out$Time, tz = "UTC")
+  if (!is.null(out$Time)) {
+    out$timestamp.posix <- make_time_col(out$Time, tz = "UTC")
+  }
 
   attr(out, "file_ext") <- "tcx"
   out
@@ -193,7 +195,9 @@ import_ride.gpx <- function(file_path, ...) {
   out <- xml_fill_dim(gpx_ls)
 
   colnames(out) <- sub("^.*:", "", colnames(out))  # From extensions.
-  if (!is.null(out$time)) out$time <- make_time_col(out$time, tz = "UTC")
+  if (!is.null(out$time)) {
+    out$timestamp.posix <- make_time_col(out$time, tz = "UTC")
+  }
 
   attr(out, "file_ext") <- "gpx"
   out

@@ -1,2 +1,7 @@
+Chages in 0.0.2
+  * Cleaned bike data now has a "start_time" attribute (if possible),
+    facilitated by the fact that all importing functions now consistently
+    try to append a "timestamp.posix" column.
+
 Changes in 0.0.1
 	* First official version; released on CRAN.

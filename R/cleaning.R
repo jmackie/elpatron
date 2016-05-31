@@ -191,8 +191,11 @@ cleaner <- function(data, instructions, ...) {
     out <- dplyr::bind_cols(out, extra_columns)
   }
 
-  # Returned.
-  dplyr::filter_(out, ~time.s != 0)  # See column_spec.
+  out <- dplyr::filter_(out, ~time.s != 0)  # See column_spec.
+  if (!is.null(data$timestamp.posix)) {
+     attr(out, "start_time") <- data$timestamp.posix[1]
+  }
+  out
 }
 
 parse_instructions <- function(instructions) {
