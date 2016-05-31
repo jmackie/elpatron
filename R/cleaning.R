@@ -174,12 +174,14 @@ clean_bikedata.default <- function(data, ...) {
 
 # ---------------------------------------------------------------------
 cleaner <- function(data, instructions, ...) {
+  oattr <- attributes(data)  # Restore later.
+
   .instr <- parse_instructions(instructions)
   # Unpack (because it looks nicer)...
   needs    <- .instr$needs
   new_cols <- .instr$new_columns
 
-  available <- purrr::map_lgl(needs, `%in%`, names(data))
+  available <- map_lgl(needs, `%in%`, names(data))
   new_cols[!available] <- NA  # Will recycle in the data_frame.
 
   out <- dplyr::transmute_(data, .dots = new_cols)  # Drops old columns.
@@ -192,9 +194,12 @@ cleaner <- function(data, instructions, ...) {
   }
 
   out <- dplyr::filter_(out, ~time.s != 0)  # See column_spec.
+
+  mostattributes(out) <- oattr
   if (!is.null(data$timestamp.posix)) {
-     attr(out, "start_time") <- data$timestamp.posix[1]
+    attr(out, "start_time") <- data$timestamp.posix[1]
   }
+
   out
 }
 

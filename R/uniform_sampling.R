@@ -32,7 +32,7 @@ uniform_sampling <- function(.data, time_column, deltat = NULL, empty_fill = 0L)
 
   # To be restored later...
   ocolnames <- colnames(.data)
-  #oattr <- attributes(.data)
+  oattr <- attributes(.data)
 
   if (is_formula(time_column)) {  # NSE.
     time_column <- deparse(time_column[[2]])
@@ -66,8 +66,12 @@ uniform_sampling <- function(.data, time_column, deltat = NULL, empty_fill = 0L)
   time_column <- match(time_column, colnames(out)) # Make numeric.
 
   out[-time_column] <- lapply(out[-time_column], "[<-", added_vals, empty_fill)
+
+  # Handle returned data attributes.
   colnames(out) <- ocolnames
+  mostattributes(out) <- oattr
   attr(out, "deltat") <- deltat
+
   out
 }
 
