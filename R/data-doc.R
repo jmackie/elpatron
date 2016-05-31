@@ -28,4 +28,3 @@ NULL
 
 #' @rdname cyclingdata
 "chaingang"
-

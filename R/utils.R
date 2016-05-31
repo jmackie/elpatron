@@ -98,6 +98,17 @@ semicircle_correct <- function(position) {
   (position * 180 / 2 ^ 31 + 180) %% 360 - 180
 }
 
+# Transfer only atypical attributes.
+`transfer_attrs<-` <- function(new_tbl, value) {
+  old_attrs <- value  # Comes from `attributes`.
+  new_attrs <- attributes(new_tbl)
+  novel_attrs <- names(old_attrs)[
+    names(old_attrs) %notin% c("names","row.names", "class")
+    ]
+  attributes(new_tbl)[novel_attrs] <- old_attrs[novel_attrs]
+  new_tbl
+}
+
 # EXPORTED -------------------------------------------------
 
 #' Faster base::diff

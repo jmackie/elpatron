@@ -195,7 +195,8 @@ cleaner <- function(data, instructions, ...) {
 
   out <- dplyr::filter_(out, ~time.s != 0)  # See column_spec.
 
-  mostattributes(out) <- oattr
+  # Handle attributes.
+  transfer_attrs(out) <- oattr
   if (!is.null(data$timestamp.posix)) {
     attr(out, "start_time") <- data$timestamp.posix[1]
   }
