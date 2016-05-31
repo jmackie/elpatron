@@ -4,7 +4,8 @@
 \alias{uniform_sampling}
 \title{Make rows uniform}
 \usage{
-uniform_sampling(.data, time_column, deltat = NULL, empty_fill = 0L)
+uniform_sampling(.data, time_column = "time.s", deltat = NULL,
+  empty_fill = 0L)
 }
 \arguments{
 \item{.data}{data.frame; the data to be made uniform on the basis of

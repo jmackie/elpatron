@@ -28,7 +28,8 @@
 #' unif <- uniform_sampling(gappy_data, ~timer.s, empty_fill = NA)
 #' head(unif)
 #' @export
-uniform_sampling <- function(.data, time_column, deltat = NULL, empty_fill = 0L) {
+uniform_sampling <- function(.data, time_column = "time.s",
+                             deltat = NULL, empty_fill = 0L) {
 
   # To be restored later...
   ocolnames <- colnames(.data)
