@@ -67,7 +67,7 @@ uniform_sampling <- function(.data, time_column, deltat = NULL, empty_fill = 0L)
 
   out[-time_column] <- lapply(out[-time_column], "[<-", added_vals, empty_fill)
   colnames(out) <- ocolnames
-
+  attr(out, "deltat") <- deltat
   out
 }
 
