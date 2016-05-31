@@ -11,7 +11,7 @@ Diff(x)
 }
 \value{
 A vector of \code{length(x)}, the first value being 0. This behaviour
-  differs from \code{\link[base]{diff}}, were the length would be
+  differs from \code{\link[base]{diff}}, where the length would be
   \code{length(x) - 1} (omitting the zero).
 }
 \description{
