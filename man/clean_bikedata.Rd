@@ -11,6 +11,10 @@ clean_bikedata(data, ...)
 
 \item{...}{arguments to be passed down to \code{\link[dplyr]{select}}.}
 }
+\value{
+a \code{\link[dplyr]{tbl_df}} with the column structure as described
+  above, with a \code{"start_time"} attribute appended where available.
+}
 \description{
 These functions implement a consistent and predictable column
   structure for incoming cycling device data. This should permit, where

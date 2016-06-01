@@ -22,6 +22,10 @@ data. If \code{NULL} (default), a guess is made via
 \item{empty_fill}{the value with which to "fill" new rows in the returned
 data. For most purposes this should be either \code{NA} or a numeric value.}
 }
+\value{
+a consistently sampled \code{\link[dplyr]{tbl_df}}, with the
+  appropriate \code{deltat} attribute.
+}
 \description{
 A useful function for working with data that aren't sampled at
   regular intervals and(or) contain gaps. This can present issues when, for

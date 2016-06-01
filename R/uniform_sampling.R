@@ -19,6 +19,9 @@
 #' @param empty_fill the value with which to "fill" new rows in the returned
 #'   data. For most purposes this should be either \code{NA} or a numeric value.
 #'
+#' @return a consistently sampled \code{\link[dplyr]{tbl_df}}, with the
+#'   appropriate \code{deltat} attribute.
+#'
 #' @examples
 #' gappy_data <- data.frame(
 #'   timer.s = c(1:100, 201:300),

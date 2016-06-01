@@ -22,6 +22,9 @@
 #' @param data data.frame to be "cleaned".
 #' @param ... arguments to be passed down to \code{\link[dplyr]{select}}.
 #'
+#' @return a \code{\link[dplyr]{tbl_df}} with the column structure as described
+#'   above, with a \code{"start_time"} attribute appended where available.
+#'
 #' @examples
 #' ride_file <- system.file("extdata/lufbra.fit", package = "elpatron")
 #'

@@ -38,7 +38,8 @@ returned as a list. \code{raw = FALSE} (default) will just return
 }
 \value{
 With very few exceptions, these functions return data as a
-  \code{\link[dplyr]{tbl_df}}.
+  \code{\link[dplyr]{tbl_df}}, with the additional attribute
+  \code{"file_ext"}.
 }
 \description{
 The generic \code{import_ride} dispatches methods based on the
