@@ -3,6 +3,7 @@ Title: Bicycling Data Analysis with R
 Version: 0.0.1
 Authors@R: person("Jordan", "Mackie", email = "jmackie@protonmail.com", role = c("aut", "cre"))
 Description: Functions to facilitate cycling analysis within the R environment.
+SystemRequirements: C++11
 Depends:
     R (>= 3.2.5)
 License: MIT + file LICENSE
