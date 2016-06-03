@@ -129,7 +129,7 @@ clean_bikedata.tcx <- function(data, ...) {
 #' @export
 clean_bikedata.gpx <- function(data, ...) {
   instructions <- list(
-    time.s      = time ~ posix_to_timer(time),
+    time.s      = time ~ posix_to_timer(timestamp.posix),
     lon         = . ~ lon,
     lat         = . ~ lat,
     distance.km = ~NA,
