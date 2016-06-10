@@ -10,6 +10,6 @@ lhs \%>\% rhs
 \item{lhs, rhs}{an R object and function to apply to it.}
 }
 \description{
-See \code{\link[magrittr]{pipe}} and/or \code{\link[dplyr]{chain}}.
+See \code{\link[magrittr]{pipe}}.
 }
 

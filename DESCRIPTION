@@ -12,12 +12,12 @@ LazyData: true
 LinkingTo: Rcpp
 Imports:
     Rcpp,
-    dplyr,
+    dplyr (>= 0.4.3.9000),
     purrr,
+    magrittr,
     lazyeval
 Suggests:
     readr,
-    raster,
-    magrittr
+    raster
 URL: https://github.com/jmackie4/elpatron
 RoxygenNote: 5.0.1

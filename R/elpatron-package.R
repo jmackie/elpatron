@@ -21,7 +21,8 @@
 #'
 #' @useDynLib elpatron
 #' @importFrom Rcpp sourceCpp
-#' @importFrom dplyr tbl_df %>%
+#' @importFrom dplyr tbl_df
+#' @importFrom magrittr %>%
 #' @importFrom purrr map map_lgl map_dbl map_df
 #' @importFrom lazyeval lazy_dots
 #'

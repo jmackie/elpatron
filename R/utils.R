@@ -1,6 +1,6 @@
 #' Pipe operator
 #'
-#' See \code{\link[magrittr]{pipe}} and/or \code{\link[dplyr]{chain}}.
+#' See \code{\link[magrittr]{pipe}}.
 #'
 #' @name %>%
 #' @rdname pipe
