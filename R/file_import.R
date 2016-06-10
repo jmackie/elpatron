@@ -121,8 +121,8 @@ import_ride.fit <- function(file_path, raw = FALSE, make_laps = TRUE, ...) {
   }
 
   # Enhanced columns aren't parsed correctly:
-  # https://www.thisisant.com/forum/viewthread/4561
-  out <- dplyr::select_(out, quote(-contains("enhanced")))
+  # See also: https://www.thisisant.com/forum/viewthread/4561
+  out <- dplyr::select_(out, quote(-dplyr::contains("enhanced")))
 
   # Create lap column.
   if (make_laps) {

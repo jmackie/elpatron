@@ -92,8 +92,10 @@ clean_bikedata(parsed_ride)
 ## Keep the lap column:
 clean_bikedata(parsed_ride, lap)
 
-## We can also make use of the special
-## dplyr::select functions.
+## We can also make use of dplyr's select_helpers
+## (see ?dplyr::select_helpers)
+
+library(dplyr, warn.conflicts = FALSE)
 clean_bikedata(parsed_ride, lap, contains("torque"))
 
 ## Trying to hold on to non-existent fields won't throw errors.
