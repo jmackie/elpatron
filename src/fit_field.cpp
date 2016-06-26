@@ -14,7 +14,6 @@
 // Tag = production-akw-16.73.00-0-gef88b3f
 ////////////////////////////////////////////////////////////////////////////////
 
-// [[Rcpp::plugins(cpp11)]]
 
 #include <cmath>
 #include <sstream>

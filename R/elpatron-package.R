@@ -44,7 +44,8 @@ NULL
 # Notes to self:
 #
 # + pugixml needs to be in header-only mode
-# + I've included all files from the FIT SDK cpp dir, but this might not be
-#   necessary.
+# + I've included all files from the FIT SDK cpp dir, but this is
+#   probably overkill. I need some way to figure out what is actually
+#   being used.
 # + CMD check doesn't like *.hpp file extensions, use *.h (e.g with
 #   a project-wide find && replace).

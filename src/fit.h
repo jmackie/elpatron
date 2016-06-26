@@ -266,7 +266,7 @@ typedef struct
 // C++ Specific Definitions
 ///////////////////////////////////////////////////////////////////////
 
-typedef std::wstring FIT_WSTRING;   // Returned by message/field "Get" APIs and required by "Set" APIs. Encoding defined in fit_config.h.
+typedef std::wstring FIT_WSTRING;   // Returned by message/field "Get" APIs and required by "Set" APIs. Encoding defined in fit_config.hpp.
 typedef const FIT_WSTRING * FIT_CONST_WSTRING_PTR;
 #define FIT_WSTRING_INVALID   (FIT_WSTRING())
 
