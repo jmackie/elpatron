@@ -19,7 +19,7 @@ import_ride(file_path, ...)
 
 \method{import_ride}{gpx}(file_path, ...)
 
-\method{import_ride}{srm}(file_path, ..., .python_exec = "python")
+\method{import_ride}{srm}(file_path, ..., .python_exec = "python2")
 }
 \arguments{
 \item{file_path}{character string; path to the file to be read. Can be

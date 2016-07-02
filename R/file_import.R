@@ -208,7 +208,7 @@ import_ride.gpx <- function(file_path, ...) {
 # ---------------------- #
 #' @rdname import_ride
 #' @export
-import_ride.srm <- function(file_path, ..., .python_exec = "python") {
+import_ride.srm <- function(file_path, ..., .python_exec = "python2") {
   srm_file_check(file_path)
 
   if (!nchar(Sys.which(.python_exec))) {
