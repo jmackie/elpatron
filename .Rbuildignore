@@ -8,3 +8,4 @@
 ^gh-pages$
 ^readme.md$
 ^cran-comments.md$
+^src/\..*$
