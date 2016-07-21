@@ -1,5 +1,5 @@
 # Changes in 0.0.3
-  + Code is now compatible with the latest `dplyr` release. Most notably, it is now expected that `contains` is an exported function from `dplyr`.
+  + Code is now compatible with the latest `dplyr` release (>= v0.5.0). Most notably, it is now expected that `contains` is an exported function from `dplyr`.
   + `magrittr` is now an import. This was an implicit dependency anyway, as it is imported by `dplyr`. The pipe operator is now imported from `magrittr` rather than (convolutedly) from `dplyr`.
   + This file now uses markdown rather than just plain text.
 
