@@ -114,7 +114,7 @@ import_ride.fit <- function(file_path, raw = FALSE, make_laps = TRUE, ...) {
                                     tz = "UTC", origin = "1990-01-01")
 
   # Coordinates: semicircles to degrees.
-  if (any(lonlat <- grepl("position", col_names))) {
+  if (any(lonlat <- grepl("position", colnames(out)))) {
     out[lonlat] <- lapply(out[lonlat], semicircle_correct)  # To degrees.
     degree_names <- gsub("semicircles", "degrees", colnames(out[lonlat]))
     colnames(out) <- replace(colnames(out), lonlat, degree_names)
