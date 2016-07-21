@@ -1,6 +1,6 @@
 Package: elpatron
 Title: Bicycling Data Analysis with R
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: person("Jordan", "Mackie", email = "jmackie@protonmail.com", role = c("aut", "cre"))
 Description: Functions to facilitate cycling analysis within the R environment.
 SystemRequirements: C++11
@@ -12,7 +12,7 @@ LazyData: true
 LinkingTo: Rcpp
 Imports:
     Rcpp,
-    dplyr (>= 0.4.3.9000),
+    dplyr (>= 0.5.0),
     purrr,
     magrittr,
     lazyeval
