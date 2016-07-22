@@ -25,7 +25,8 @@
 #' @return a \code{\link[dplyr]{tbl_df}} with the column structure as described
 #'   above, with a \code{"start_time"} attribute appended where available.
 #'
-#' @examples
+#' NOTE: don't run this because valgrind complains about the FIT SDK src code.
+#' @examples \dontrun{
 #' ride_file <- system.file("extdata/lufbra.fit", package = "elpatron")
 #'
 #' parsed_ride <- import_ride(ride_file, make_laps = TRUE)
@@ -44,6 +45,7 @@
 #'
 #' ## Trying to hold on to non-existent fields won't throw errors.
 #' clean_bikedata(parsed_ride, lap, contains("epo_concentration"))
+#' }
 #' @export
 clean_bikedata <- function(data, ...) {
   class(data) <- attr(data, "file_ext")  # attr comes from import_ride.* functions.

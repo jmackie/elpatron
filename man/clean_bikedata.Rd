@@ -14,6 +14,8 @@ clean_bikedata(data, ...)
 \value{
 a \code{\link[dplyr]{tbl_df}} with the column structure as described
   above, with a \code{"start_time"} attribute appended where available.
+
+NOTE: don't run this because valgrind complains about the FIT SDK src code.
 }
 \description{
 These functions implement a consistent and predictable column
@@ -82,6 +84,7 @@ Note that these functions do not retain any of the original data
 }
 }
 \examples{
+\dontrun{
 ride_file <- system.file("extdata/lufbra.fit", package = "elpatron")
 
 parsed_ride <- import_ride(ride_file, make_laps = TRUE)
@@ -100,5 +103,6 @@ clean_bikedata(parsed_ride, lap, contains("torque"))
 
 ## Trying to hold on to non-existent fields won't throw errors.
 clean_bikedata(parsed_ride, lap, contains("epo_concentration"))
+}
 }
 
