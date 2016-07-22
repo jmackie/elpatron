@@ -1,11 +1,12 @@
 Package: elpatron
 Title: Bicycling Data Analysis with R
-Version: 0.0.4
-Authors@R: person("Jordan", "Mackie", email = "jmackie@protonmail.com", role = c("aut", "cre"))
+Version: 0.0.5
+Authors@R: c(
+    person("Jordan", "Mackie", email = "jmackie@protonmail.com", role = c("aut", "cre")),
+    person("Alex Cooper", email = "alex@acooper.org", role = "ctb"))
 Description: Functions to facilitate cycling analysis within the R environment.
 SystemRequirements: C++11
-Depends:
-    R (>= 3.2.5)
+Depends: R (>= 3.2.5)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
