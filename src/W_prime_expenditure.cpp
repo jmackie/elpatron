@@ -1,5 +1,7 @@
 #include <Rcpp.h>
+#include <array>
 using namespace Rcpp;
+
 
 // [[Rcpp::export]]
 std::vector<double> WEXPEND(NumericVector t, NumericVector P, double CP)
@@ -9,28 +11,28 @@ std::vector<double> WEXPEND(NumericVector t, NumericVector P, double CP)
     stop("Inputs are different lengths.");
   }
 
-  double n = P.size(), i;
+  const int N = P.size();
 
-  // Vector of supra- and sub-CP sections.
-  std::vector<double> section(n);
-  for (i = 0; i < n; ++i)
+  // supra- and sub-CP sections
+  std::vector<int> section(N);
+  for (int i = 0; i < N; ++i)
   {
     /*
-     * # Sections
-     * 0 == recovery
-     * 1 == work (supra-CP)
-     * 2 == NA (to prevent errors)
+     * Sections:
+     *  0 == recovery (sub-CP)
+     *  1 == work     (supra-CP)
+     *  2 == NA       (to prevent errors)
      */
-    section[i] = (NumericVector::is_na(P[i])) ? 2 : (P[i] <= CP) ? 0 : 1;
+    section[i] = NumericVector::is_na(P[i]) ? 2 : P[i] <= CP ? 0 : 1;
   }
 
-  // Vectors required for W' expenditure calculation.
-  std::vector<double> dt(n), dWexp(n), tu(n), tau(n);
+  // arrays required for W' expenditure calculation
+  std::vector<double> dt(N), dWexp(N), tu(N), tau(N);
 
-  for (i = 1; i < n; ++i) // NB: Starts at the **second** element.
+  for (int i = 1; i < N; ++i)  // NOTE: starts at the *second* element
   {
-
-    // Delta time.
+    // delta time
+    // ----------
     if (NumericVector::is_na(t[i]))
     {
       stop("NAs not allowed in time values.");
@@ -40,16 +42,18 @@ std::vector<double> WEXPEND(NumericVector t, NumericVector P, double CP)
       dt[i] = t[i] - t[i - 1];
     }
 
-    // NA power value: retain previous value.
+    // initial check
+    // -------------
+    // NA power value: retain previous value
     if (NumericVector::is_na(P[i]))
     {
       dWexp[i] = dWexp[i - 1];
     }
-
-    // **** Supra-CP section ****
+    // supra-CP section
+    // ----------------
     else if (section[i])
     {
-      // In case there is a long pause (> 10 s), and data starts
+      // in case there is a long pause (> 10 s), and data starts
       // recording with non-zero power, use next delta time value.
       if (dt[i] > 10)
       {
@@ -60,14 +64,14 @@ std::vector<double> WEXPEND(NumericVector t, NumericVector P, double CP)
         dWexp[i] = dt[i] * (P[i] - CP);
       }
 
-      // *Delta* W' expended is cumulative; check previous value.
+      // *delta* W' expended is cumulative; check previous value
       if (section[i - 1])
       {
         dWexp[i] += dWexp[i - 1];
       }
     }
-
-    // **** Sub-CP (recovery) section ****
+    // sub-CP section
+    // --------------
     else
     {
       tu[i]  = tu[i - 1] ? dt[i] + tu[i - 1] : dt[i];
@@ -75,41 +79,26 @@ std::vector<double> WEXPEND(NumericVector t, NumericVector P, double CP)
     }
   }
 
-  // Generate W' expenditure from the above.
-  std::vector<double> Wexp(n);
-  double Wtmp = 0;
+  // generate W' expenditure from the above
+  std::vector<double> Wexp(N);
+  double last_work = 0, last_recovery = 0;
 
-  for (i = 0; i < n; ++i)
+  for (int i = 0; i < N; ++i)
   {
-
-    // **** Supra-CP section ****
+    // supra-CP section
+    // ----------------
     if (section[i])
     {
-      Wexp[i] = dWexp[i] + Wtmp;
-
-      // Store value.
-      if (!section[i + 1])
-      {
-        Wtmp = Wexp[i];
-      }
+      Wexp[i] = last_work = dWexp[i] + last_recovery;
     }
 
-    // **** Sub-CP (recovery) section ****
-    else
+    // sub-CP section
+    // ----------------
+    else if (last_work)  // anything to recover?
     {
-      if (Wtmp != 0)  // Anything to recover?
-      {
-        Wexp[i] = Wtmp * std::exp(-tu[i] / tau[i]);
-
-        // Store value.
-        if (section[i + 1])
-        {
-          Wtmp = Wexp[i];
-        }
-      }
+      Wexp[i] = last_recovery = last_work * std::exp(-tu[i] / tau[i]);
     }
-
   }
 
-  return Wexp;  // Joules.
+  return Wexp;  // Joules
 }
