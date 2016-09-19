@@ -1,3 +1,4 @@
+#!/usr/bin/Rscript
 library(elpatron)
 
 # Functions to test:
@@ -8,7 +9,6 @@ library(elpatron)
 # CUMSUM
 # DIFF
 # EMA_WEIGHTS
-# PARSE_FIT
 # PARSE_GPX
 # PARSE_PWX
 # PARSE_TCX
@@ -30,9 +30,6 @@ fls <- list.files(
 
 names(fls) <- tools::file_ext(fls)
 
-# NOTE: valgrind will complain about the FIT SDK src code.
-#       I don't know how to fix that.
-elpatron:::PARSE_FIT(fls["fit"]) -> .
 elpatron:::PARSE_GPX(fls["gpx"]) -> .
 elpatron:::PARSE_PWX(fls["pwx"]) -> .
 elpatron:::PWX_START_TIME(fls["pwx"]) -> .

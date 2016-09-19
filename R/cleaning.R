@@ -19,14 +19,13 @@
 #'
 #' @template clean_structure
 #'
-#' @param data data.frame to be "cleaned".
-#' @param ... arguments to be passed down to \code{\link[dplyr]{select}}.
+#' @param data ride data (from \code{\link{import_ride}}) to be "cleaned".
+#' @param ... arguments to be passed to \code{\link[dplyr]{select}}.
 #'
 #' @return a \code{\link[dplyr]{tbl_df}} with the column structure as described
 #'   above, with a \code{"start_time"} attribute appended where available.
 #'
-#' NOTE: don't run this because valgrind complains about the FIT SDK src code.
-#' @examples \dontrun{
+#' @examples
 #' ride_file <- system.file("extdata/lufbra.fit", package = "elpatron")
 #'
 #' parsed_ride <- import_ride(ride_file, make_laps = TRUE)
@@ -45,10 +44,9 @@
 #'
 #' ## Trying to hold on to non-existent fields won't throw errors.
 #' clean_bikedata(parsed_ride, lap, contains("epo_concentration"))
-#' }
 #' @export
 clean_bikedata <- function(data, ...) {
-  class(data) <- attr(data, "file_ext")  # attr comes from import_ride.* functions.
+  class(data) <- attr(data, "file_ext")  # attr comes from import_ride.* functions
   UseMethod("clean_bikedata", data)
 }
 
@@ -76,7 +74,8 @@ clean_bikedata.fit <- function(data, ...) {
     power.W     = . ~ power.watts,
     cadence.rpm = . ~ cadence.rpm,
     hr.bpm      = . ~ heart_rate.bpm,
-    temp.C      = . ~ temperature.C
+    temp.C      = . ~ temperature.C,
+    lap         = . ~ lap
   )
   cleaner(data, instructions, ...)  # Dots == dplyr::select arguments.
 }
@@ -98,7 +97,8 @@ clean_bikedata.pwx <- function(data, ...) {
     power.W     = . ~ pwr,
     cadence.rpm = . ~ cad,
     hr.bpm      = . ~ hr,
-    temp.C      = . ~ temp
+    temp.C      = . ~ temp,
+    lap         = . ~ lap
   )
   cleaner(data, instructions, ...)
 }
@@ -122,7 +122,8 @@ clean_bikedata.tcx <- function(data, ...) {
     power.W     = . ~ Watts,
     cadence.rpm = . ~ Cadence,
     hr.bpm      = . ~ HeartRateBpm,
-    temp.C      = ~NA
+    temp.C      = ~NA,
+    lap         = . ~ lap
   )
   cleaner(data, instructions, ...)
 }
@@ -144,7 +145,8 @@ clean_bikedata.gpx <- function(data, ...) {
     power.W     = ~NA,
     cadence.rpm = . ~ cad,
     hr.bpm      = . ~ hr,
-    temp.C      = . ~ atemp
+    temp.C      = . ~ atemp,
+    lap         = . ~ lap
   )
   cleaner(data, instructions, ...)
 }
@@ -155,18 +157,19 @@ clean_bikedata.gpx <- function(data, ...) {
 #' @export
 clean_bikedata.srm <- function(data, ...) {
   instructions <- list(
-    time.s      = timeoffset ~ posix_to_timer(timeoffset),
+    time.s      = timeoffset ~ posix_to_timer(timestamp.posix),
     lon         = . ~ lon,
     lat         = . ~ lat,
     distance.km = . ~ km,
     speed.kmh   = . ~ kph,
-    elevation.m = alt ~ if (all(!alt)) NA else alt,  # Could be filled with zeros.
-    VAM         = ~NA,  # Ignore for now.
+    elevation.m = alt ~ if (all(!alt)) NA else alt,  # could be filled with zeros
+    VAM         = ~NA,    # ignore for now.
     work.kJ     = watts ~ Cumsum(watts * Diff(time.s) / 1000),
     power.W     = . ~ watts,
     cadence.rpm = . ~ cad,
     hr.bpm      = . ~ hr,
-    temp.C      = . ~ temp
+    temp.C      = . ~ temp,
+    lap         = . ~ lap
   )
   cleaner(data, instructions, ...)
 }
@@ -181,7 +184,7 @@ clean_bikedata.default <- function(data, ...) {
 
 # ---------------------------------------------------------------------
 cleaner <- function(data, instructions, ...) {
-  oattr <- attributes(data)  # Restore later.
+  oattr <- attributes(data)  # restore later
 
   .instr <- parse_instructions(instructions)
   # Unpack (because it looks nicer)...
@@ -189,18 +192,18 @@ cleaner <- function(data, instructions, ...) {
   new_cols <- .instr$new_columns
 
   available <- map_lgl(needs, `%in%`, names(data))
-  new_cols[!available] <- NA  # Will recycle in the data_frame.
+  new_cols[!available] <- NA  # will recycle in the data_frame
 
-  out <- dplyr::transmute_(data, .dots = new_cols)  # Drops old columns.
+  out <- dplyr::transmute_(data, .dots = new_cols)  # drops old columns
 
   # Handle dots (i.e. dplyr::select arguments).
   dots <- lazyeval::lazy_dots(...)
   extra_columns <- dplyr::select_(data, .dots = dots)
-  if (length(extra_columns)) {  # Columns to append?
+  if (length(extra_columns)) {  # columns to append?
     out <- dplyr::bind_cols(out, extra_columns)
   }
 
-  out <- dplyr::filter_(out, ~time.s != 0)  # See column_spec.
+  out <- dplyr::filter_(out, ~time.s != 0)  # see column_spec
 
   # Handle attributes.
   transfer_attrs(out) <- oattr

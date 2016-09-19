@@ -19,7 +19,7 @@ import_ride(file_path, ...)
 
 \method{import_ride}{gpx}(file_path, ...)
 
-\method{import_ride}{srm}(file_path, ..., .python_exec = "python2")
+\method{import_ride}{srm}(file_path, ...)
 }
 \arguments{
 \item{file_path}{character string; path to the file to be read. Can be
@@ -28,13 +28,10 @@ absolute or relative.}
 \item{...}{further arguments passed to or from other methods.}
 
 \item{raw}{logical; if \code{TRUE} all data retrieved from the fit file is
-returned as a list. \code{raw = FALSE} (default) will just return
+returned as a list. \code{raw = FALSE} (default) will just return formatted
 "records", which are generally what's expected/of interest.}
 
 \item{make_laps}{logical; append a lap column to the data (if available)?}
-
-\item{.python_exec}{character; path to a python executable. E.g.
-\code{Sys.which("python")}. The script was developed with python v2.7.11.}
 }
 \value{
 With very few exceptions, these functions return data as a
@@ -56,36 +53,23 @@ These functions will do very little with the parsed data by default.
   Timestamps are converted to \code{\link[base]{POSIXct}} when available.
 
   Currently supported formats are: \itemize{
-  \item{\strong{pwx:} }{Training Peaks pwx files (an XML format).}
-  \item{\strong{fit: }}{Garmin fit files (a binary format).}
-  \item{\strong{tcx: }{Garmin training center files (an XML format).}}
-  \item{\strong{gpx: }{GPS Exchange Format (a lame XML format).}}
-  \item{\strong{srm: }{SRM power control files (a binary format).}}
+  \item{\strong{pwx:}}{Training Peaks pwx files (an XML format).}
+  \item{\strong{fit:}}{Garmin fit files (a binary format).}
+  \item{\strong{tcx:}{Garmin training center files (an XML format).}}
+  \item{\strong{gpx:}{GPS Exchange Format (a lame XML format).}}
+  \item{\strong{srm:}{SRM power control files (a binary format).}}
   }
 
   Tabular data are always returned as dplyr \code{\link[dplyr]{tbl}} objects.
   This ensures clean printing and makes data easier to work with.
-
-  The method for SRM power control files uses \code{python} code. Hence
-  \code{import_ride.srm} will raise an error if the python executable (given
-  in the argument \code{.python_exec}) is not found on the system path. The
-  method will also make use of the \code{readr} package if it is available
-  (\emph{advised}). Note the python script was developed with python version
-  2.7.11.
 }
 \section{Notes}{
  Garmin Fit files return positional coordinates in units of
   semicircles. These are converted to degrees by default (if \code{raw =
-  FALSE}). The present implementation does not correctly parse
-  \emph{enhanced} fields, so these are discarded; not that these are of
-  interest for most human-powered activities!
+  FALSE}).
 }
 
 \section{Acknowledgements}{
- Fit files are parsed using code from the
-  \href{https://www.thisisant.com/resources/fit}{ANT+ FIT SDK}. This code was
-  ported to \code{\link[Rcpp]{Rcpp}} and kindly contributed by
-  \href{https://github.com/kuperov}{Alex Cooper}
 
   XML file formats are parsed using the \href{http://pugixml.org/}{pugixml}
   C++ library.
@@ -93,9 +77,6 @@ These functions will do very little with the parsed data by default.
   SRM parsing code was adapted from the code in the Golden Cheetah repository
   (which can be found
   \href{https://github.com/GoldenCheetah/GoldenCheetah/blob/master/src/FileIO/SrmRideFile.cpp}{here}).
-
-  All third-party licenses can be found in \code{system.file("licenses",
-  package = "elpatron")}.
 }
 \examples{
 \dontrun{

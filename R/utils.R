@@ -83,6 +83,8 @@ na_rm <- function(x) {
   x[!is.na(x)]
 }
 
+`%or%` <- function(lhs, rhs) if (lhs) lhs else rhs
+
 make_time_col <- function(x, format = "%FT%T", tz = "") {
   # dplyr doesn't like POSIXlt.
   # Also see: http://www.w3schools.com/xml/schema_dtypes_date.asp
@@ -103,10 +105,15 @@ semicircle_correct <- function(position) {
   old_attrs <- value  # Comes from `attributes`.
   new_attrs <- attributes(new_tbl)
   novel_attrs <- names(old_attrs)[
-    names(old_attrs) %notin% c("names","row.names", "class")
-    ]
+    names(old_attrs) %notin% c("names","row.names", "class")]
   attributes(new_tbl)[novel_attrs] <- old_attrs[novel_attrs]
   new_tbl
+}
+
+# Used in `read_srm`.
+read_bin_string <- function(conn, n) {
+  intToUtf8(readBin(conn, integer(), n = n, size = 1L,
+                    signed = FALSE, endian = "little"))
 }
 
 # EXPORTED -------------------------------------------------

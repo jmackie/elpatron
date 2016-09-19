@@ -33,9 +33,7 @@ test_that("Cleaning extdata directory", {
 
   # Clean files should have (by default) 12 columns.
   # see ?clean_bikedata
-  for (f in files) {
-    import_ride(f) %>% clean_bikedata %>% expect_length(12)
-  }
+  for (f in files) import_ride(f) %>% clean_bikedata %>% expect_length(13)
 })
 
 # Check the output of individual import functions ----------------------------
@@ -159,64 +157,6 @@ test_that("GPX files are parsed correctly", {
 
   for (n in names(check)) {
     expect_Equal(imported[[n]][i], check[[n]], info = file_path)
-  }
-})
-
-# ---------------------- #
-#          .FIT          #
-# ---------------------- #
-fit_csv_tool <- function(file_path) {
-  # We need the FitCSVTool to be in the parent
-  # directory (i.e. in tests dir).
-  tool <- file.path("../../.testfiles/FitCSVTool.jar")
-
-  returnifnot(file.exists(tool))(NULL)
-
-  tmp_file <- tempfile("fit_test_", fileext = "")
-  cmd <- sprintf(
-    "java -jar %s -b %s %s --data record --defn none",
-    tool, file_path, tmp_file
-  )
-  system(cmd, ignore.stdout = TRUE, ignore.stderr = FALSE)
-
-  to_read <- paste0(tmp_file, "_data.csv")
-  out <- suppressWarnings(readr::read_csv(to_read))
-  out <- out[!is.na(colnames(out))]
-  clean_names <- gsub("record\\.", "", colnames(out)) %>%
-    make.names %>%
-    gsub("^X\\.", "", .)
-  colnames(out) <- clean_names
-  out
-}
-
-test_that("FIT files are parsed correctly", {
-  returnifnot(require(readr))()
-  file_path <- get_test_file("fit")
-
-  raw <- import_ride(file_path, raw = FALSE) %>% (dplyr::as_data_frame)
-  check <- fit_csv_tool(file_path)
-
-  # For other users running these checks, abort due to
-  # absence of the FitCSVTool.jar
-  returnifnot(!is.null(check))()
-
-  # NA omit consistently.
-  complete_rows <- apply(raw, 1, function(row) !any(is.na(row)))
-
-  raw   <- raw[complete_rows, ]
-  check <- check[complete_rows, ]
-
-  # Make degrees from semicircles.
-  lonlat <- grepl("position", colnames(check))
-  check[lonlat] <- lapply(check[lonlat], function(x) x * 180 / 2 ^ 31)
-  degree_names <- gsub("semicircles", "degrees", colnames(check[lonlat]))
-  colnames(check) <- replace(colnames(check), lonlat, degree_names)
-
-  for (name in names(raw)) {
-    check_names <- names(check)
-    name_match <- check_names[pmatch(make.names(name), check_names)]
-    if (is.na(name_match) || grepl("enhanced", name_match)) next  # Look into this.
-    expect_equal(raw[[name]], check[[name_match]], info = file_path)
   }
 })
 

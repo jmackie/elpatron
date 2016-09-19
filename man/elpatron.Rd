@@ -12,18 +12,17 @@ data within the R environment.
 \details{
 \code{elpatron} supercedes the \code{cycleRtools} package, if only for having
 a cooler name. Generally speaking, this package attempts to do much less than
-cycleRtools. But what it does, it does much better. File reading functions
-are now much more efficient; raw data is left largely untouched by default;
-and certain assumptions that had to be made for more \emph{involved} routines
-are now left to the user to explicitly resolve. Generally speaking, the best
-bits of cycleRtools have been skimmed and improved.
+\code{cycleRtools}. But what it does, it does much better. File reading
+functions are now much more efficient; raw data is left largely untouched by
+default; and certain assumptions that had to be made for more \emph{involved}
+routines are now left to the user to explicitly resolve. Generally speaking,
+the best bits of cycleRtools have been skimmed and improved.
 
 This package came with the realisation that the advantage of using R is not
 convenience \emph{per se}, but rather its attendant freedom and flexibility.
 Hence, rather than provide menial functions for common analysis routines,
 this package simply aims to be \emph{facilitative}.
 
-The package is also intended to work seamlessly with those of Hadley Wickham
-\emph{et al.} (notably \code{dplyr} and \code{purrr}).
+The package is also intended to work seamlessly with the \code{tidyverse}.
 }
 

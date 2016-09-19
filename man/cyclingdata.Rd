@@ -30,6 +30,8 @@ lufbra <- f \%>\% import_ride \%>\% clean_bikedata
 
 f <- system.file("extdata/chaingang.fit", package = "elpatron")
 chaingang <- f \%>\% import_ride \%>\% clean_bikedata
+
+# devtools::use_data(lufbra, chaingang)
 }
 }
 \keyword{datasets}

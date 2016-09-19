@@ -7,15 +7,13 @@
 clean_bikedata(data, ...)
 }
 \arguments{
-\item{data}{data.frame to be "cleaned".}
+\item{data}{ride data (from \code{\link{import_ride}}) to be "cleaned".}
 
-\item{...}{arguments to be passed down to \code{\link[dplyr]{select}}.}
+\item{...}{arguments to be passed to \code{\link[dplyr]{select}}.}
 }
 \value{
 a \code{\link[dplyr]{tbl_df}} with the column structure as described
   above, with a \code{"start_time"} attribute appended where available.
-
-NOTE: don't run this because valgrind complains about the FIT SDK src code.
 }
 \description{
 These functions implement a consistent and predictable column
@@ -81,10 +79,14 @@ Note that these functions do not retain any of the original data
   Ambient temperature in degrees Celsius.
   }
 
+  \item{lap}{
+  A lap counter, starting from 1.
+
+  }
+
 }
 }
 \examples{
-\dontrun{
 ride_file <- system.file("extdata/lufbra.fit", package = "elpatron")
 
 parsed_ride <- import_ride(ride_file, make_laps = TRUE)
@@ -103,6 +105,5 @@ clean_bikedata(parsed_ride, lap, contains("torque"))
 
 ## Trying to hold on to non-existent fields won't throw errors.
 clean_bikedata(parsed_ride, lap, contains("epo_concentration"))
-}
 }
 

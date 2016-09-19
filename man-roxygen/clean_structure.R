@@ -42,4 +42,9 @@
 #'   Ambient temperature in degrees Celsius.
 #'   }
 #'
+#'   \item{lap}{
+#'   A lap counter, starting from 1.
+#'
+#'   }
+#'
 #' }
