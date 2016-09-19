@@ -15,6 +15,8 @@
 #'
 #' f <- system.file("extdata/chaingang.fit", package = "elpatron")
 #' chaingang <- f \%>\% import_ride \%>\% clean_bikedata
+#'
+#' # devtools::use_data(lufbra, chaingang)
 #' }
 #'
 #' @format Both data files have been formatted according to the \emph{clean}
