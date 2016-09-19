@@ -33,17 +33,14 @@
 #' ## Simple cleaning:
 #' clean_bikedata(parsed_ride)
 #'
-#' ## Keep the lap column:
-#' clean_bikedata(parsed_ride, lap)
-#'
 #' ## We can also make use of dplyr's select_helpers
 #' ## (see ?dplyr::select_helpers)
 #'
 #' library(dplyr, warn.conflicts = FALSE)
-#' clean_bikedata(parsed_ride, lap, contains("torque"))
+#' clean_bikedata(parsed_ride, contains("torque"))
 #'
 #' ## Trying to hold on to non-existent fields won't throw errors.
-#' clean_bikedata(parsed_ride, lap, contains("epo_concentration"))
+#' clean_bikedata(parsed_ride, contains("epo_concentration"))
 #' @export
 clean_bikedata <- function(data, ...) {
   class(data) <- attr(data, "file_ext")  # attr comes from import_ride.* functions
