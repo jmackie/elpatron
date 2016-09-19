@@ -1,9 +1,14 @@
+# Changes in 0.1.0
+  + FIT file reading is now handled by the `fitdc` package rather than compiled code from the FIT SDK, which threw up some licensing issues.
+  + SRM file reading is now handled by pure `R` code, which removes the former `python` dependency and the `readr` suggest.
+  + The `clean_bikedata` structure now includes a lap column.
+
 # Changes in 0.0.4
   + Corrected some pesky memory-access bugs in the source code.
 
 # Changes in 0.0.3
   + Code is now compatible with the latest `dplyr` release (>= v0.5.0). Most notably, it is now expected that `contains` is an exported function from `dplyr`.
-  + `magrittr` is now an import. This was an implicit dependency anyway, as it is imported by `dplyr`. The pipe operator is now imported from `magrittr` rather than (convolutedly) from `dplyr`.
+  + `magrittr` is now an import. This was an implicit dependency anyway, as it is imported by `dplyr`. The pipe operator is now imported from `magrittr` rather than (convolutely) from `dplyr`.
   + This file now uses markdown rather than just plain text.
 
 # Changes in 0.0.2
