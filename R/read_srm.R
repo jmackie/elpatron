@@ -169,6 +169,7 @@ read_srm <- function(file_path) {
   out <- dplyr::bind_rows(data_chunks)
   out$km <- Cumsum(out$km)
 
+  # Need to check this!
   attr(out, "start_date") <- as.POSIXct(header$days_since_1880 * 24 * 60^2,
                                         origin = "1880-01-01")
   out
