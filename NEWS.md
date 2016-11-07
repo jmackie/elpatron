@@ -1,6 +1,7 @@
 # Changes in 0.1.0
   + FIT file reading is now handled by the `fitdc` package rather than compiled code from the FIT SDK, which threw up some licensing issues.
   + SRM file reading is now handled by pure `R` code, which removes the former `python` dependency and the `readr` suggest.
+  + `uniform_sampling` is gone, replaced by `resample`, which is a much more explicit solution. Inspired by the `resample` method of the pandas DataFrame.
   + The `clean_bikedata` structure now includes a lap column.
 
 # Changes in 0.0.4

@@ -45,7 +45,7 @@ power_prof <- function(power.W, time.s, windows = seq(2*60, 30*60, 10),
     msg <- stringwrap(
       "Breaks (>20-seconds) detected in the data.",
       "This could generate specious power values.",
-      "Consider calling uniform_sampling() on the data."
+      "Consider resampling the data (?resample)."
     )
     warn_(msg)
   }

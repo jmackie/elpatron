@@ -8,8 +8,8 @@
 #'   emphasised as often a time-windowed rolling average is desired. The latter
 #'   can only be achieved if data are sampled uniformly, i.e. a \code{window =
 #'   10} rolling mean will also give a 10-second moving average with data
-#'   sampled at 1 Hz. If data are not sampled consistently, consider passing
-#'   them through \code{\link{uniform_sampling}}.
+#'   sampled at 1 Hz. If data are not sampled consistently, consider resampling
+#'   with \code{\link{resample}}.
 #'
 #'   The rolling mean returned here is right-aligned, padded with leading zeros.
 #'   That is, there are \code{window - 1} zeros at the start of the return
